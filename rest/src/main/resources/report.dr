@@ -1,0 +1,62 @@
+复盘 $time
+数据
+涨停：$replay.data.trading，非一字涨停：$replay.data.noninlinetrading，跌停：$replay.data.failing
+赚钱效应：$replay.data.profitmarkingeffect
+上涨：$replay.data.rise，下跌：$replay.data.fall
+融资融券：$replay.data.marginfinancing.change，$replay.data.marginfinancing.sum
+外资：$replay.data.foreigncapital.sum，沪市：#foreach( $sh in $replay.data.foreigncapital.sh ) $sh#if( $foreach.hasNext ),#end#end 深市：#foreach( $sz in $replay.data.foreigncapital.sz ) $sz#if( $foreach.hasNext ),#end#end
+
+
+板块资金流动（去除有干扰的板块）
+净流入前五：#foreach( $inflow in $replay.complexinflow.inflows ) $inflow#if( $foreach.hasNext ),#end#end
+
+净流出前五：#foreach( $outflow in $replay.complexinflow.outflows ) $outflow#if( $foreach.hasNext ),#end#end
+
+
+当日盘面一览
+$replay.marketreview.market
+市场高度，#foreach( $dragon in $replay.marketreview.sympatheticstock.dragon ) $dragon.n，$dragon.d #if( $foreach.hasNext )，#end#end
+
+一板核心：#foreach( $onetrading in $replay.marketreview.sympatheticstock.onetrading ) $onetrading.n，$onetrading.d #if( $foreach.hasNext )，#end#end
+
+二板核心：#foreach( $twotrading in $replay.marketreview.sympatheticstock.twotrading ) $twotrading.n，$twotrading.d #if( $foreach.hasNext )，#end#end
+
+三板核心：#foreach( $threetrading in $replay.marketreview.sympatheticstock.threetrading ) $threetrading.n，$threetrading.d #if( $foreach.hasNext )，#end#end
+
+四板核心：#foreach( $fourtrading in $replay.marketreview.sympatheticstock.fourtrading ) $fourtrading.n，$fourtrading.d #if( $foreach.hasNext )，#end#end
+
+炸板，#foreach( $breaktrading in $replay.marketreview.sympatheticstock.breaktrading ) $breaktrading.n，$breaktrading.d #if( $foreach.hasNext )，#end#end，大面，#foreach( $bigfall in $replay.marketreview.sympatheticstock.bigfall ) $bigfall.n，$bigfall.d #if( $foreach.hasNext )，#end#end，情绪标的，#foreach( $subnewstock in $replay.marketreview.sympatheticstock.subnewstock ) $subnewstock.n，$subnewstock.d #if( $foreach.hasNext )，#end#end
+
+总结，盘面上，$replay.marketreview.summary.sum。连扳率$replay.marketreview.summary.breaktradingrate%，炸板率$replay.marketreview.summary.contitradingrate%。
+
+热点评价
+#foreach( $hotspot in $replay.hotspot )
+$hotspot.name，$hotspot.complexhot，$hotspot.dragon，$hotspot.sum
+#end
+
+
+今日操作
+详看表格
+
+
+情绪股
+前妖反包：无
+进端次新，次新情绪：$replay.sympatheticstock.subnewstock.get(0).n
+市场高度：#foreach( $dragon in $replay.sympatheticstock.dragon ) $dragon.n#if( $foreach.hasNext )，#end#end
+
+龙二： 无
+炸板+主流概念：$replay.sympatheticstock.breaktrading.get(0).n
+炸板+非主流概念：$replay.sympatheticstock.breaktrading.get(1).n
+大面：#foreach( $bigfall in $replay.sympatheticstock.bigfall ) $bigfall.n#if( $foreach.hasNext )，#end#end
+
+停牌：#foreach( $stoptrade in $replay.sympatheticstock.stoptrade ) $stoptrade.n#if( $foreach.hasNext )，#end#end
+
+一板核心：#foreach( $onetrading in $replay.sympatheticstock.onetrading ) $onetrading.n#if( $foreach.hasNext )，#end#end
+
+二板核心：#foreach( $twotrading in $replay.sympatheticstock.twotrading ) $twotrading.n#if( $foreach.hasNext )，#end#end
+
+三板核心：#foreach( $threetrading in $replay.sympatheticstock.threetrading ) $threetrading.n#if( $foreach.hasNext )，#end#end
+
+四板核心：#foreach( $fourtrading in $replay.sympatheticstock.fourtrading ) $fourtrading.n#if( $foreach.hasNext )，#end#end
+
+短线：关注后排标的的溢价

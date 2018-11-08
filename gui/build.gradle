@@ -1,0 +1,31 @@
+
+task createJavaFile() {
+
+    file("src/main/java/com/replay/dragon/rest").mkdirs()
+
+    file("src/test/java/com/replay/dragon/rest").mkdirs()
+
+}
+
+task createJavaProjectDolphins() {
+
+    sourceSets*.java.srcDirs*.each{ mkdir(it.path) }
+
+    sourceSets*.resources.srcDirs*.each{ mkdir(it.path) }
+
+    file('readme.md').createNewFile()
+}
+
+
+dependencies {
+
+    compile project(':rest')
+
+
+
+    // https://mvnrepository.com/artifact/io.netty/netty-all
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.25.Final'
+
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
